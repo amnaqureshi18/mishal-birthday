@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe6e9 0%, #fbc2eb 100%);
+    color: #4a4a4a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* ----- Password Screen ----- */
+#lock-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 240, 243, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    text-align: center;
+}
+
+.lock-card {
+    background: #ffffff;
+    padding: 35px 25px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(230, 100, 130, 0.2);
+    max-width: 380px;
+    width: 100%;
+    border: 2px solid #ffccd5;
+}
+
+.lock-card h2 {
+    color: #ff4d6d;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.lock-card p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.pass-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffb3c1;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 5px;
+    outline: none;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.pass-input:focus {
+    border-color: #ff4d6d;
+    box-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+}
+
+.unlock-btn {
+    background: linear-gradient(45deg, #ff4d6d, #ff758f);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+    transition: transform 0.2s;
+}
+
+.unlock-btn:active {
+    transform: scale(0.95);
+}
+
+.error-msg {
+    color: #e63946;
+    font-size: 13px;
+    margin-top: 10px;
+    display: none;
+}
+
+/* ----- Main Content ----- */
+#main-content {
+    display: none;
+    width: 100%;
+    max-width: 650px;
+    padding: 20px;
+    margin: 40px auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 30px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #fff0f3;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.header-card {
+    text-align: center;
+    background: linear-gradient(135deg, #ff758f, #ff4d6d);
+    color: white;
+}
+
+.header-card h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 42px;
+    margin-bottom: 5px;
+}
+
+.story-section {
+    line-height: 1.8;
+    font-size: 15px;
+    color: #444;
+}
+
+.urdu-text {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 2.3;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.badge {
+    display: inline-block;
+    background: #ffe6e9;
+    color: #ff4d6d;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.highlight-box {
+    background: #fff0f3;
+    border-right: 4px solid #ff4d6d;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-style: italic;
+}
+
+.wish-box {
+    text-align: center;
+    background: #ffffff;
+    border: 2px dashed #ff758f;
+}
+
+.wish-title {
+    font-family: 'Caveat', cursive;
+    font-size: 32px;
+    color: #ff4d6d;
+    margin-bottom: 15px;
+}
+
+.amin-btn {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.amin-btn:hover {
+    background: #c9184a;
+}
+
+/* Floating Hearts */
+.heart {
+    position: fixed;
+    color: #ff4d6d;
+    font-size: 20px;
+    animation: floatUp 4s linear infinite;
+    z-index: 999;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
