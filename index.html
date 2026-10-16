@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mishi! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Lock Screen -->
+    <div id="lock-screen">
+        <div class="lock-card">
+            <h2>🔒 Special Surprise Inside</h2>
+            <p>مشعل! یہ خاص سرپرائز صرف آپ کے لیے ہے۔ اپنا برتھ ڈے کوڈ (DDMM) درج کریں:</p>
+            <input type="password" id="passcode" class="pass-input" placeholder="••••" maxlength="4">
+            <br>
+            <button class="unlock-btn" onclick="checkCode()">Unlock Happiness ✨</button>
+            <p id="error" class="error-msg">غلط پاس ورڈ! یاد کریں آپ کی برتھ ڈیٹ کیا ہے؟ 😉</p>
+        </div>
+    </div>
+
+    <!-- Main Surprise Content -->
+    <div id="main-content">
+
+        <!-- Header -->
+        <div class="card header-card">
+            <span style="font-size: 40px;">🎂✨💖</span>
+            <h1>Happy Birthday Mishi!</h1>
+            <p>کراچی سے گوجرخان تک... فاصلے زیادہ، مگر دل سب سے قریب!</p>
+        </div>
+
+        <!-- Section 1: The Connection -->
+        <div class="card story-section">
+            <span class="badge">🌸 Our Miracle Story</span>
+            <div class="urdu-text">
+                ہماری شروعات آن لائن ایک عام سی دوستی سے ہوئی تھی... لیکن کسے معلوم تھا کہ قدرت کے پاس ہمارے لیے کتنا خوبصورت سرپرائز تھا! جب پتہ چلا کہ ہم تو دراصل ایک دوسرے کے رشتہ دار ہیں، وہ لمحہ میرے لیے سچ میں بہت حیران کن اور پیارا تھا۔
+            </div>
+        </div>
+
+        <!-- Section 2: Long Distance & Cafe Memories -->
+        <div class="card story-section">
+            <span class="badge">☕ Long Distance & Special Moments</span>
+            <div class="urdu-text">
+                کراچی سے گوجرخان کا فاصلہ اتنا لمبا ہے، لیکن تم پھر بھی مجھ سے ملنے آئیں۔ وہ لمحہ میرے لیے کتنا خاص تھا، میں لفظوں میں بیان نہیں کر سکتی!
+                <div class="highlight-box">
+                    "آخری بار جب ہم اتنی مشکلوں کا سامنا کر کے کیفے گئے تھے... وقت چاہے بہت تھوڑا تھا، لیکن وہ میری زندگی کا بہترین وقت تھا!"
+                </div>
+                واللہ! تمہاری وہ پیاری آنکھیں، تمہارا ہاتھ تھامنا... کچھ بھی بھولنے والا نہیں ہے۔ میں تمہیں سچ میں بہت بہت پیار کرتی ہوں اور تمہیں روز مس کرتی ہوں۔ ❤️
+            </div>
+        </div>
+
+        <!-- Section 3: Birthday Wishes & Prayers -->
+        <div class="card wish-box">
+            <div class="wish-title">My Heartfelt Prayer For You ✨</div>
+            <div class="urdu-text" style="text-align: center; line-height: 2.5;">
+                <strong>Happy Birthday Mishi! 🎉</strong><br>
+                ہمیشہ خوش رہو، آباد رہو...<br>
+                اور جتنی پیاری تم خود ہو نا، اللہ پاک اس سے بھی پیارے تمہارے نصیب کرے! 🌸<br>
+                <em style="color: #ff4d6d; font-size: 18px;">آمین ثم آمین! 🤲✨</em>
+            </div>
+            <button class="amin-btn" onclick="showLoveAlert()">Say Amen ❤️</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
