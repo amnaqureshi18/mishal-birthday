@@ -1,70 +1,466 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Mishi! ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            color: #4a4a4a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            overflow-x: hidden;
+        }
+
+        /* Floating Background Hearts */
+        .heart-bg {
+            position: fixed;
+            color: rgba(255, 77, 109, 0.6);
+            font-size: 18px;
+            animation: floatUp 4s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.6) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Screen Wrapper */
+        .app-card {
+            width: 100%;
+            max-width: 380px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(220, 80, 110, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            padding: 24px 20px;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* LOCK SCREEN */
+        #lock-screen {
+            text-align: center;
+        }
+
+        .lock-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .lock-title {
+            color: #ff4d6d;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .lock-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        .pass-input {
+            width: 85%;
+            padding: 14px;
+            border: 2px solid #ffccd5;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 10px;
+            outline: none;
+            color: #ff4d6d;
+            background: #fff5f7;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+            margin-bottom: 16px;
+            transition: 0.3s;
+        }
+
+        .pass-input:focus {
+            border-color: #ff4d6d;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.25);
+        }
+
+        .primary-btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.35);
+            transition: all 0.2s active;
+        }
+
+        .primary-btn:active {
+            transform: scale(0.97);
+        }
+
+        .error-msg {
+            color: #d90429;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* HEADER CARD */
+        .header-box {
+            text-align: center;
+            background: linear-gradient(135deg, #ff758f, #ff4d6d);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.25);
+        }
+
+        .header-box h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 38px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .header-box p {
+            font-size: 12px;
+            opacity: 0.95;
+            letter-spacing: 0.5px;
+        }
+
+        /* CAKE STEP */
+        #cake-screen {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background: #ffe6e9;
+            color: #ff4d6d;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .cake-area {
+            position: relative;
+            margin: 20px 0 25px;
+        }
+
+        .cake-emoji {
+            font-size: 85px;
+            display: block;
+            line-height: 1;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        .flame-emoji {
+            font-size: 28px;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flick 0.6s infinite alternate;
+        }
+
+        @keyframes flick {
+            0% { transform: translateX(-50%) scale(1) rotate(-3deg); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.2) rotate(3deg); opacity: 1; }
+        }
+
+        .party-msg {
+            font-weight: 600;
+            color: #ff4d6d;
+            font-size: 15px;
+            margin-top: 15px;
+            display: none;
+            line-height: 1.4;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* MEMORIES STEP */
+        #memories-screen {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .section-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #ffe6e9;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            text-align: left;
+        }
+
+        .section-card p {
+            font-size: 13.5px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .quote-box {
+            background: #fff0f3;
+            border-left: 4px solid #ff4d6d;
+            padding: 12px;
+            border-radius: 0 12px 12px 0;
+            margin: 12px 0;
+            font-style: italic;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .wish-card {
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe6e9 100%);
+            border: 2px dashed #ff758f;
+            text-align: center;
+        }
+
+        .wish-title {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            color: #ff4d6d;
+            margin-bottom: 6px;
+        }
+
+        .wish-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .amen-badge {
+            color: #ff4d6d;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Lock Screen -->
-    <div id="lock-screen">
-        <div class="lock-card">
-            <h2>🔒 Special Surprise Inside</h2>
-            <p>مشعل! یہ خاص سرپرائز صرف آپ کے لیے ہے۔ اپنا برتھ ڈے کوڈ (DDMM) درج کریں:</p>
-            <input type="password" id="passcode" class="pass-input" placeholder="••••" maxlength="4">
-            <br>
-            <button class="unlock-btn" onclick="checkCode()">Unlock Happiness ✨</button>
-            <p id="error" class="error-msg">غلط پاس ورڈ! یاد کریں آپ کی برتھ ڈیٹ کیا ہے؟ 😉</p>
-        </div>
-    </div>
-
-    <!-- Main Surprise Content -->
-    <div id="main-content">
-
-        <!-- Header -->
-        <div class="card header-card">
-            <span style="font-size: 40px;">🎂✨💖</span>
-            <h1>Happy Birthday Mishi!</h1>
-            <p>کراچی سے گوجرخان تک... فاصلے زیادہ، مگر دل سب سے قریب!</p>
+    <div class="app-card">
+        
+        <!-- STEP 1: LOCK SCREEN -->
+        <div id="lock-screen">
+            <div class="lock-icon">🎁</div>
+            <h2 class="lock-title">Special Birthday Surprise</h2>
+            <p class="lock-subtitle">Mishi! Apni birth date enter karo (DDMM) ta k tumhara surprise unlock ho sake:</p>
+            
+            <input type="password" id="passcode" class="pass-input" placeholder="••••" maxlength="4" pattern="\d*">
+            <button class="primary-btn" onclick="unlockApp()">Unlock Birthday Magic ✨</button>
+            <p id="error-text" class="error-msg">Wrong password! Yaad karo tumhari birth date kya hai? 😉</p>
         </div>
 
-        <!-- Section 1: The Connection -->
-        <div class="card story-section">
-            <span class="badge">🌸 Our Miracle Story</span>
-            <div class="urdu-text">
-                ہماری شروعات آن لائن ایک عام سی دوستی سے ہوئی تھی... لیکن کسے معلوم تھا کہ قدرت کے پاس ہمارے لیے کتنا خوبصورت سرپرائز تھا! جب پتہ چلا کہ ہم تو دراصل ایک دوسرے کے رشتہ دار ہیں، وہ لمحہ میرے لیے سچ میں بہت حیران کن اور پیارا تھا۔
+        <!-- STEP 2: CAKE & CANDLE BLOWING -->
+        <div id="cake-screen">
+            <div class="header-box">
+                <h1>Happy Birthday Mishi!</h1>
+                <p>From Karachi to Gujar Khan ✨</p>
+            </div>
+
+            <span class="badge-pill">🎂 Candle Blow Time</span>
+            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Pehle candle blow karo aur party start karo!</p>
+
+            <div class="cake-area">
+                <span id="flame" class="flame-emoji">🔥</span>
+                <span id="candle" style="font-size: 24px; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); z-index: 2;">🕯️</span>
+                <span class="cake-emoji">🎂</span>
+            </div>
+
+            <button id="blow-btn" class="primary-btn" onclick="blowCandle()">💨 Blow The Candle</button>
+            
+            <div id="party-msg" class="party-msg">
+                🎉 YAYYY! Happy Birthday Mishi! <br>Candle blow ho gayi! 🥳✨
+            </div>
+
+            <div id="next-btn-box" style="display: none; margin-top: 20px;">
+                <button class="primary-btn" style="background: linear-gradient(45deg, #7209b7, #f72585);" onclick="openMemories()">
+                    👉 Tap Here for Your Special Memories ❤️
+                </button>
             </div>
         </div>
 
-        <!-- Section 2: Long Distance & Cafe Memories -->
-        <div class="card story-section">
-            <span class="badge">☕ Long Distance & Special Moments</span>
-            <div class="urdu-text">
-                کراچی سے گوجرخان کا فاصلہ اتنا لمبا ہے، لیکن تم پھر بھی مجھ سے ملنے آئیں۔ وہ لمحہ میرے لیے کتنا خاص تھا، میں لفظوں میں بیان نہیں کر سکتی!
-                <div class="highlight-box">
-                    "آخری بار جب ہم اتنی مشکلوں کا سامنا کر کے کیفے گئے تھے... وقت چاہے بہت تھوڑا تھا، لیکن وہ میری زندگی کا بہترین وقت تھا!"
+        <!-- STEP 3: MEMORIES & WISHES -->
+        <div id="memories-screen">
+            <div class="header-box" style="margin-bottom: 15px;">
+                <h1>Our Memories & Wishes</h1>
+                <p>A Small Gift For My Special Relative & Bestie 💖</p>
+            </div>
+
+            <!-- Memory 1 -->
+            <div class="section-card">
+                <span class="badge-pill" style="margin-bottom: 8px;">🌸 How We Connected</span>
+                <p>
+                    Hamari shuruwat online aik aam si dosti se hui thi... Lekin kisay maloom tha ke qismat ke paas hamare liye itna khoobsurat surprise chupa hai! Jab pata chala ke hum toh naturally aapas mein relatives nikle, wo lamha mere liye bohat hi special aur amazing tha.
+                </p>
+            </div>
+
+            <!-- Memory 2 -->
+            <div class="section-card">
+                <span class="badge-pill" style="margin-bottom: 8px;">☕ Long Distance & Cafe Time</span>
+                <p>
+                    Karachi se Gujar Khan ka distance itna lamba hai, lekin phir bhi tum mujhse milne aaiin. Wo waqt mere liye kitna keemti tha, main lafzon mein bayaan nahi kar sakti!
+                </p>
+                <div class="quote-box">
+                    "Last time jab hum itni mushkilon ka samna kar ke cafe gaye thay... Waqt chahe bohat thora tha, lekin wo meri zindagi ka best time tha wallah!"
                 </div>
-                واللہ! تمہاری وہ پیاری آنکھیں، تمہارا ہاتھ تھامنا... کچھ بھی بھولنے والا نہیں ہے۔ میں تمہیں سچ میں بہت بہت پیار کرتی ہوں اور تمہیں روز مس کرتی ہوں۔ ❤️
+                <p>
+                    Tumhari wo pyari aankhen, tumhara hands holding... kuch bhi bhoolne wala nahi hai. I really, really love you and I miss you so much! ❤️
+                </p>
             </div>
-        </div>
 
-        <!-- Section 3: Birthday Wishes & Prayers -->
-        <div class="card wish-box">
-            <div class="wish-title">My Heartfelt Prayer For You ✨</div>
-            <div class="urdu-text" style="text-align: center; line-height: 2.5;">
-                <strong>Happy Birthday Mishi! 🎉</strong><br>
-                ہمیشہ خوش رہو، آباد رہو...<br>
-                اور جتنی پیاری تم خود ہو نا، اللہ پاک اس سے بھی پیارے تمہارے نصیب کرے! 🌸<br>
-                <em style="color: #ff4d6d; font-size: 18px;">آمین ثم آمین! 🤲✨</em>
+            <!-- Wishes Card -->
+            <div class="section-card wish-card">
+                <div class="wish-title">Heartfelt Birthday Wish ✨</div>
+                <div class="wish-text">
+                    <strong>Happy Birthday Mishi! 🎉</strong><br>
+                    Hamesha khush raho, abad raho...<br>
+                    Aur jitni pyari tum khud ho na, Allah Pak us se bhi pyare tumhare naseeb kare! 🌸<br>
+                    <span class="amen-badge">Ameen Sum Ameen! 🤲❤️</span>
+                </div>
             </div>
-            <button class="amin-btn" onclick="showLoveAlert()">Say Amen ❤️</button>
         </div>
 
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Start floating hearts background
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createHeart, 400);
+
+        // Unlock function
+        function unlockApp() {
+            const pass = document.getElementById('passcode').value;
+            const error = document.getElementById('error-text');
+            
+            if (pass === '1710') {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('cake-screen').style.display = 'block';
+                
+                // Welcoming confetti
+                confetti({
+                    particleCount: 60,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        // Blow Candle & Trigger Party Poppers
+        function blowCandle() {
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('candle').innerHTML = '✨🕯️';
+            document.getElementById('blow-btn').style.display = 'none';
+            document.getElementById('party-msg').style.display = 'block';
+            document.getElementById('next-btn-box').style.display = 'block';
+
+            // Play party sound effect
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch(e){}
+
+            // Party Poppers Confetti Explosion
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 7,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 7,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < animationEnd) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Open Memories
+        function openMemories() {
+            document.getElementById('cake-screen').style.display = 'none';
+            document.getElementById('memories-screen').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
